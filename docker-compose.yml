@@ -7,7 +7,8 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: eventhub
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+      - ./seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro 
     ports:
       - "5432:5432"
 
@@ -21,5 +22,8 @@ services:
     ports:
       - "8080:8080"
 
+  
+
 volumes:
   db_data:
+
