@@ -1,19 +1,25 @@
 package auth
 
 import (
-	"context"
 	"net/http"
 	"strings"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 var jwtSecret []byte
 
+// Init sets the JWT secret key for token verification.
 func Init(secret string) {
 	jwtSecret = []byte(secret)
 }
 
+// GetSecret returns the JWT secret key.
+func GetSecret() []byte {
+	return jwtSecret
+}
+
+// JWTMiddleware verifies the JWT token and injects claims into the request context.
 func JWTMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		header := r.Header.Get("Authorization")
@@ -31,7 +37,8 @@ func JWTMiddleware(next http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), "user", token.Claims)
+		// Inject claims into context
+		ctx := NewContext(r.Context(), token.Claims.(jwt.MapClaims))
 		next(w, r.WithContext(ctx))
 	}
 }
