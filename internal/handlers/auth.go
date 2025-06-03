@@ -9,7 +9,8 @@ import (
 	"github.com/bartbaranski/eventhub/internal/auth"
 	"github.com/bartbaranski/eventhub/internal/models"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
+
 	"golang.org/x/crypto/bcrypt"
 )
 

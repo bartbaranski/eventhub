@@ -1,0 +1,68 @@
+
+{
+  "navbar": {
+    "events": "Events",
+    "reservations": "My Reservations",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register",
+    "home": "Home",
+    "highContrast": "High Contrast",
+    "normalContrast": "Normal Contrast"
+  },
+  "home": {
+    "title": "Welcome to EventHub",
+    "lead": "EventHub is a platform where organizers can easily create and manage events, while participants can quickly browse, register, and purchase tickets.",
+    "organizerInfo": "If you are an organizer, create an account and then add your events. If you are looking for an interesting event—register, log in, and check the list of upcoming events.",
+    "loginButton": "Log in",
+    "registerButton": "Register"
+  },
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Login",
+    "invalidCredentials": "Invalid credentials"
+  },
+  "register": {
+    "title": "Register",
+    "email": "Email",
+    "password": "Password",
+    "role": "Role",
+    "organizer": "Organizer",
+    "participant": "Participant",
+    "submit": "Register"
+  },
+    "buttons": {
+    "viewDetails": "View Details"
+  },
+  "reservations": {
+    "title": "My Reservations",
+    "noReservations": "You have no reservations yet.",
+    "loginToView": "Please log in to view your reservations.",
+    "errorLoading": "An error occurred while loading reservations.",
+    "eventTitle": "Event Title",
+    "date": "Date",
+    "tickets": "Tickets",
+    "unknownEvent": "Unknown Event"
+  },
+   "eventsList": {
+    "title": "Events",
+    "noEvents": "No events available",
+    "noTitle": "No title",
+    "noDate": "No date",
+    "invalidDate": "Invalid date",
+    "noDescription": "No description",
+    "noCapacity": "No capacity",
+    "capacity": "Capacity",
+    "errorLoading": "Unable to load events",
+    "errorSaving": "Unable to save event",
+    "createEvent": "Create Event" ,  
+    "description": "Description",
+    "date": "Date",
+    "posterURL": "Poster URL",
+    "posterHint": "Enter path e.g. /images/poster.jpg",
+    "save": "Save",
+    "time": "Time"        
+  }
+}

@@ -1,0 +1,69 @@
+
+{
+  "navbar": {
+    "events": "Wydarzenia",
+    "reservations": "Moje Rezerwacje",
+    "logout": "Wyloguj się",
+    "login": "Zaloguj się",
+    "register": "Zarejestruj się",
+    "home": "Strona Główna",
+    "highContrast": "Duży Kontrast",
+    "normalContrast": "Normalny Kontrast"
+  },
+  "home": {
+    "title": "Witamy w EventHub",
+    "lead": "EventHub to platforma, dzięki której organizatorzy mogą łatwo tworzyć i zarządzać wydarzeniami, a uczestnicy szybko przeglądać oferty, rejestrować się i kupować bilety.",
+    "organizerInfo": "Jeżeli jesteś organizatorem, załóż konto, a następnie dodaj swoje wydarzenia. Jeżeli szukasz ciekawego eventu – zarejestruj się, zaloguj i sprawdź listę nadchodzących wydarzeń.",
+    "loginButton": "Zaloguj się",
+    "registerButton": "Zarejestruj się"
+  },
+  "login": {
+    "title": "Logowanie",
+    "email": "Email",
+    "password": "Hasło",
+    "submit": "Zaloguj się",
+    "invalidCredentials": "Nieprawidłowe dane logowania"
+  },
+  "register": {
+    "title": "Rejestracja",
+    "email": "Email",
+    "password": "Hasło",
+    "role": "Rola",
+    "organizer": "Organizator",
+    "participant": "Uczestnik",
+    "submit": "Zarejestruj się"
+  },
+  "eventsList": {
+    "title": "Wydarzenia",
+    "noEvents": "Brak wydarzeń",
+    "noTitle": "Brak tytułu",
+    "noDate": "Brak daty",
+    "invalidDate": "Nieprawidłowa data",
+    "noDescription": "Brak opisu",
+    "noCapacity": "Brak liczby miejsc",
+    "capacity": "Liczba miejsc",
+    "errorLoading": "Błąd ładowania wydarzeń",
+    "errorSaving": "Błąd zapisu wydarzenia",
+    "createEvent": "Utwórz wydarzenie",  
+    "editEvent": "Edytuj wydarzenie",
+    "description": "Opis",
+    "date": "Data",
+    "posterURL": "URL plakatu",
+    "posterHint": "Podaj ścieżkę, np. /images/poster.jpg",
+    "save": "Zapisz",
+    "time": "Godzina"     
+  },
+  "buttons": {
+    "viewDetails": "Zobacz szczegóły"
+  },
+  "reservations": {
+    "title": "Moje Rezerwacje",
+    "noReservations": "Nie masz jeszcze żadnych rezerwacji.",
+    "loginToView": "Aby zobaczyć rezerwacje, zaloguj się.",
+    "errorLoading": "Wystąpił błąd podczas ładowania rezerwacji.",
+    "eventTitle": "Tytuł Wydarzenia",
+    "date": "Data",
+    "tickets": "Liczba Biletów",
+    "unknownEvent": "Nieznane wydarzenie"
+  }
+}

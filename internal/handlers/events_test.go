@@ -1,30 +1,34 @@
+// internal/handlers/events_test.go
+
 package handlers_test
 
 import (
 	"bytes"
+	"context"
 	"database/sql"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"time"
 
+	"github.com/bartbaranski/eventhub/internal/auth"
 	"github.com/bartbaranski/eventhub/internal/handlers"
-	"github.com/bartbaranski/eventhub/internal/models"
 	"github.com/bartbaranski/eventhub/internal/storage"
+	"github.com/golang-jwt/jwt/v4"
 )
 
+// newEventDB tworzy in-memory BD ze wszystkimi kolumnami, jakie wykorzystuje handler.
 func newEventDB(t *testing.T) *sql.DB {
 	db := storage.NewTestDB()
-	// Stwórz tabelkę events
 	schema := `
     CREATE TABLE events (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      title TEXT NOT NULL,
-      description TEXT,
-      date DATETIME NOT NULL,
-      capacity INTEGER NOT NULL,
-      organizer_id INTEGER NOT NULL
+      id           INTEGER PRIMARY KEY AUTOINCREMENT,
+      title        TEXT    NOT NULL,
+      description  TEXT,
+      date         DATETIME NOT NULL,
+      capacity     INTEGER NOT NULL,
+      organizer_id INTEGER NOT NULL,
+      image_url    TEXT
     );`
 	if _, err := db.Exec(schema); err != nil {
 		t.Fatalf("create events table: %v", err)
@@ -43,7 +47,7 @@ func TestListEvents_Empty(t *testing.T) {
 	if w.Code != http.StatusOK {
 		t.Fatalf("expected 200, got %d", w.Code)
 	}
-	var ev []models.Event
+	var ev []map[string]interface{}
 	if err := json.Unmarshal(w.Body.Bytes(), &ev); err != nil {
 		t.Fatalf("unmarshal: %v", err)
 	}
@@ -56,36 +60,50 @@ func TestCreateAndListEvents(t *testing.T) {
 	db := newEventDB(t)
 	hCreate := handlers.CreateEvent(db)
 
-	evt := models.Event{
-		Title:       "Tytuł",
-		Description: "Opis",
-		Date:        time.Date(2025, 6, 1, 9, 0, 0, 0, time.UTC),
-		Capacity:    100,
-		OrganizerID: 1,
+	// Przygotuj kontekst z claims: user.id=1, role="organizer"
+	claims := jwt.MapClaims{"id": float64(1), "role": "organizer"}
+	ctx := auth.NewContext(context.Background(), claims)
+
+	// Payload z polem "date_time" w formacie YYYY-MM-DDTHH:MM
+	payload := map[string]interface{}{
+		"title":       "Tytuł",
+		"description": "Opis",
+		"date_time":   "2025-06-01T09:00", // dokładny format
+		"capacity":    100,
+		"image_url":   "/images/test.jpg",
 	}
-	body, _ := json.Marshal(evt)
-	req := httptest.NewRequest("POST", "/events", bytes.NewReader(body))
+	bodyBytes, err := json.Marshal(payload)
+	if err != nil {
+		t.Fatalf("marshal payload: %v", err)
+	}
+
+	req := httptest.NewRequest("POST", "/events", bytes.NewReader(bodyBytes)).WithContext(ctx)
+	req.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 	hCreate(w, req)
 
 	if w.Code != http.StatusCreated {
-		t.Fatalf("expected 201, got %d", w.Code)
+		t.Fatalf("expected 201 Created, got %d; body=%s", w.Code, w.Body.String())
 	}
 
-	// teraz lista
+	// Teraz GET /events
 	hList := handlers.ListEvents(db)
 	req2 := httptest.NewRequest("GET", "/events", nil)
 	w2 := httptest.NewRecorder()
 	hList(w2, req2)
 
-	var ev []models.Event
+	if w2.Code != http.StatusOK {
+		t.Fatalf("expected 200 OK on list, got %d", w2.Code)
+	}
+
+	var ev []map[string]interface{}
 	if err := json.Unmarshal(w2.Body.Bytes(), &ev); err != nil {
 		t.Fatalf("unmarshal list: %v", err)
 	}
 	if len(ev) != 1 {
 		t.Fatalf("expected 1 event, got %d", len(ev))
 	}
-	if ev[0].Title != evt.Title {
-		t.Errorf("expected title %q, got %q", evt.Title, ev[0].Title)
+	if ev[0]["title"] != "Tytuł" {
+		t.Errorf("expected title %q, got %q", "Tytuł", ev[0]["title"])
 	}
 }

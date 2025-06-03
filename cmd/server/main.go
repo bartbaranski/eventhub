@@ -1,3 +1,4 @@
+// main.go
 package main
 
 import (
@@ -34,6 +35,26 @@ func loadConfig(path string) (*Config, error) {
 	return &cfg, nil
 }
 
+// corsMiddleware dodaje nagłówki CORS i od razu odpowiada na preflight (OPTIONS)
+func corsMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Dopuszczamy żądania z frontendu (localhost:3000)
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+		// Dopuszczamy nagłówki, które może wysyłać frontend
+		w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type")
+		// Dopuszczamy metody HTTP, których frontend będzie używać
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+
+		// Jeśli to żądanie preflight (OPTIONS), od razu zwracamy 204 No Content
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+		// W przeciwnym wypadku – przekazujemy dalej do właściwego handlera
+		next.ServeHTTP(w, r)
+	})
+}
+
 func main() {
 	// allow overriding config location via flag
 	configPath := flag.String("config", "configs/config.yaml", "path to config file")
@@ -54,7 +75,10 @@ func main() {
 	// use underlying *sql.DB
 	db := pg.DB
 
+	// Tworzymy router główny
 	r := mux.NewRouter()
+
+	// Wszystkie ścieżki zaczynające się od /api/v1
 	api := r.PathPrefix("/api/v1").Subrouter()
 
 	// Authentication endpoints
@@ -72,6 +96,9 @@ func main() {
 	api.HandleFunc("/reservations", auth.JWTMiddleware(handlers.ListReservations(db))).Methods("GET")
 	api.HandleFunc("/reservations", auth.JWTMiddleware(handlers.CreateReservation(db))).Methods("POST")
 
+	// Owijamy cały router w middleware CORS
+	handlerWithCORS := corsMiddleware(r)
+
 	log.Printf("Starting server on %s", cfg.ServerAddress)
-	log.Fatal(http.ListenAndServe(cfg.ServerAddress, r))
+	log.Fatal(http.ListenAndServe(cfg.ServerAddress, handlerWithCORS))
 }

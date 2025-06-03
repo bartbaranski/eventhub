@@ -1,0 +1,343 @@
+/* src/index.css */
+
+/* ------------------------------
+   Reset i bazowe ustawienia
+   ------------------------------ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+}
+
+/* Kontener główny */
+#__root,
+.App {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------
+   Nawigacja (Navbar)
+   ------------------------------ */
+.navbar {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.navbar .nav-link {
+  color: #555 !important;
+  font-size: 1rem;
+  margin-right: 1rem;
+}
+
+.navbar .nav-link:hover {
+  color: #000 !important;
+}
+
+.navbar .btn {
+  margin-left: 0.5rem;
+}
+
+/* ------------------------------
+   Przyciski (Button)
+   ------------------------------ */
+.btn {
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  color: #fff;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #1e7e34;
+  border-color: #1e7e34;
+  color: #fff;
+}
+
+.btn-outline-secondary {
+  border-color: #6c757d;
+  color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: #fff;
+  border-color: #6c757d;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #a71d2a;
+  border-color: #a71d2a;
+  color: #fff;
+}
+
+/* ------------------------------
+   Formularze (Form)
+   ------------------------------ */
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.form-control {
+  border-radius: 4px;
+  border-color: #ced4da;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* ------------------------------
+   Karty (Card)
+   ------------------------------ */
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.card .card-body {
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.card-img-top {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  object-fit: cover;
+}
+
+/* ------------------------------
+   Tabela (Table)
+   ------------------------------ */
+.table {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.table thead {
+  background-color: #f1f3f5;
+}
+
+.table th {
+  font-weight: 600;
+  color: #444;
+}
+
+.table td, .table th {
+  padding: 0.75rem 1rem;
+  vertical-align: middle;
+}
+
+/* ------------------------------
+   Alerty (Alert)
+   ------------------------------ */
+.alert {
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.alert-info {
+  background-color: #e9f7fe;
+  color: #055160;
+  border-color: #b5e2f7;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #842029;
+  border-color: #f5c2c7;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  color: #664d03;
+  border-color: #ffecb5;
+}
+
+/* ------------------------------
+   Spinner
+   ------------------------------ */
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+  border-width: 0.2rem;
+}
+
+/* ------------------------------
+   Kontener (Container) i Row/Col
+   ------------------------------ */
+.container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Ewentualne marginesy między sekcjami */
+.mt-4 {
+  margin-top: 2rem !important;
+}
+.mb-3 {
+  margin-bottom: 1rem !important;
+}
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+/* ------------------------------
+   Nawigacja paginacji itp.
+   ------------------------------ */
+.pagination {
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.page-link {
+  border-radius: 4px;
+}
+
+/* ------------------------------
+   Styl kalendarza (react-calendar)
+   ------------------------------ */
+.react-calendar {
+  width: 100%;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.react-calendar__navigation button {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.react-calendar__tile--active {
+  background-color: #007bff !important;
+  color: #fff !important;
+}
+
+.event-date {
+  background-color: #e3f2fd !important;
+  border-radius: 4px;
+}
+
+/* ------------------------------
+   Tłumaczenia (i18n) - opcjonalne style
+   ------------------------------ */
+.language-selector {
+  font-size: 0.9rem;
+  margin-right: 1rem;
+}
+
+/* ------------------------------
+   Styl dla wysokiego kontrastu
+   ------------------------------ */
+.high-contrast {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.high-contrast a {
+  color: #0ff !important;
+}
+
+.high-contrast .btn {
+  background-color: #fff !important;
+  color: #000 !important;
+  border-color: #fff !important;
+}
+
+.high-contrast .navbar,
+.high-contrast .card,
+.high-contrast .container,
+.high-contrast .table {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.high-contrast .card .card-title,
+.high-contrast .card .card-subtitle,
+.high-contrast .card .card-text,
+.high-contrast .form-label,
+.high-contrast .form-control {
+  color: #fff !important;
+  background-color: #000 !important;
+  border-color: #fff !important;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 
+  Kropkowane tło: 
+  - tło bazowe: jasnoszary kolor
+  - tło z kropeczkami: radial-gradient, w którym kropka ma 1px średnicy, a odstęp między powtarzającymi się kropkami to 10px
+*/
+body {
+  background-color: #f5f7fa; /* kolor bazowy */
+  background-image: 
+    radial-gradient(circle, 
+      #ccc 1px,       /* kolor kropki i jej rozmiar */
+      transparent 1px  /* reszta pola przeźroczysta */
+    );
+  background-size: 10px 10px; /* odstęp między kolejnymi kropkami (poziomo i pionowo) */
+}

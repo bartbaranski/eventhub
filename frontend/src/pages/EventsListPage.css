@@ -1,0 +1,13 @@
+/* src/pages/EventsListPage.css */
+
+.event-date {
+  background: #007bff;      /* niebieskie tło */
+  color: white;             /* biały tekst */
+  border-radius: 50%;       /* okrągłe wyróżnienie */
+}
+
+/* Możesz dostosować wygląd „hover” albo dodatkowe SDK */
+.event-date:hover {
+  background: #0056b3;
+  color: #fff;
+}
